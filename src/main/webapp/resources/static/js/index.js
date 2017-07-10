@@ -14,31 +14,130 @@ var app = angular.module("myApp", []).controller("myCtrl",function($scope, $wind
 
   //investigar dois valores iguais no mesmo array ocorre um problema
   function dataEmployes(){
-    $scope.values = [
+	  var xhr = new createCORSRequest();
+
+	    xhr.open("GET", "http://localhost:8080/monitor/queryemployee");
+
+	    xhr.withCredentials = true;
+	    xhr.setRequestHeader('enctype', 'multipart/form-data');
+	    xhr.setRequestHeader('Access-Control-Allow-Origin','*');
+
+
+
+	    xhr.withCredentials = false;
+	    //xhr.responseType = 'json';
+	    // Response handlers.
+	    xhr.onload = function() {
+	      var text = xhr.responseText;
+	      
+	      var response = this.responseText;
+	      var resp = JSON.parse(response);
+	      console.log(resp);
+	      
+	      $scope.values = resp;
+	      
+	    };
+
+
+	    xhr.onerror = function(){
+	      alert("Error");
+	      console.log(this.status);
+	      console.log(this.responseText);
+	    };
+
+	    xhr.send();
+	  
+	  
+   /* $scope.values = [
       ["1","Igor","1000","2"],
       ["2","Pedro","1500","1"],
       ["3","Carlos","1500","2"],
       ["4","Lucas", "1000", "1"],
       ["5","Jorge", "1300", "2"],
       ["6", "Fabio", "1500", "1"]
-    ];
+    ];*/
     $scope.attributs = ["id","name", "salary" ,"department_id"];
   }
 
   function dataDepartments(){
-    $scope.values = [
+	  var xhr = new createCORSRequest();
+
+	    xhr.open("GET", "http://localhost:8080/monitor/querydepartments");
+
+	    xhr.withCredentials = true;
+	    xhr.setRequestHeader('enctype', 'multipart/form-data');
+	    xhr.setRequestHeader('Access-Control-Allow-Origin','*');
+
+
+
+	    xhr.withCredentials = false;
+	    //xhr.responseType = 'json';
+	    // Response handlers.
+	    xhr.onload = function() {
+	      var text = xhr.responseText;
+	      
+	      var response = this.responseText;
+	      var resp = JSON.parse(response);
+	      console.log(resp);
+	      
+	      $scope.values = resp;
+	    };
+
+
+	    xhr.onerror = function(){
+	      alert("Error");
+	      console.log(this.status);
+	      console.log(this.responseText);
+	    };
+
+	    xhr.send();
+	  
+   /* $scope.values = [
       ["1","sales", "2"],
       ["2","technology","3"]
-    ];
+    ];*/
     $scope.attributs = ["id","name", "boss_id"];
   }
 
   function dataClients(){
-     $scope.values = [
+	  var xhr = new createCORSRequest();
+
+	    xhr.open("GET", "http://localhost:8080/monitor/queryclients");
+
+	    xhr.withCredentials = true;
+	    xhr.setRequestHeader('enctype', 'multipart/form-data');
+	    xhr.setRequestHeader('Access-Control-Allow-Origin','*');
+
+
+
+	    xhr.withCredentials = false;
+	    //xhr.responseType = 'json';
+	    // Response handlers.
+	    xhr.onload = function() {
+	      var text = xhr.responseText;
+	      
+	      var response = this.responseText;
+	      var resp = JSON.parse(response);
+	      console.log(resp);
+	      
+	      $scope.values = resp;
+	    };
+
+
+	    xhr.onerror = function(){
+	      alert("Error");
+	      console.log(this.status);
+	      console.log(this.responseText);
+	    };
+
+	    xhr.send();
+	  
+	  
+    /* $scope.values = [
       ["1","Henrique", "2"],
       ["2","Lucas","3"],
       ["3", "Paulo", "4"]
-    ];
+    ];*/
     $scope.attributs = ["id","name", "salesman_id"];
   }
 
@@ -50,7 +149,7 @@ var app = angular.module("myApp", []).controller("myCtrl",function($scope, $wind
   });
 
 
-  /*$scope.play =function(){
+  $scope.play =function(){
     $scope.values = [];
     $scope.attributs = [];
     $scope.menssagem = "";
@@ -67,7 +166,7 @@ var app = angular.module("myApp", []).controller("myCtrl",function($scope, $wind
     }
     
   }
-	*/
+	
   
   $scope.openGrafics = function(){
     console.log("TESTE");

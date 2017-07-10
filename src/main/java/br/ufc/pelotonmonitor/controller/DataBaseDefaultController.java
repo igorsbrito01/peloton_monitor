@@ -10,11 +10,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.Response;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 
 import br.ufc.pelotonmonitor.dao.DatabaseDao;
-import br.ufc.pelotonmonitor.model.Database;
 import br.ufc.pelotonmonitor.model.TableDefault;
 
 @Controller
@@ -96,7 +90,7 @@ public class DataBaseDefaultController {
 	}
 	
 	//Metodos temporarios, usados apenas para demonstracao enquando o metodo generico nao fica pronto
-	@RequestMapping(value="/queryEmployee", method=RequestMethod.GET, produces="application/json") 
+	@RequestMapping(value="/queryemployee", method=RequestMethod.GET, produces="application/json") 
 	public @ResponseBody String queryEmployees() throws SQLException, ClassNotFoundException{
 		Class.forName("org.postgresql.Driver");
 		Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/","default_database", "");
@@ -126,7 +120,7 @@ public class DataBaseDefaultController {
 			
 	}
 	
-	@RequestMapping(value="/queryDepartments", method=RequestMethod.GET, produces="application/json") 
+	@RequestMapping(value="/querydepartments", method=RequestMethod.GET, produces="application/json") 
 	public String queryDepartments() throws SQLException, ClassNotFoundException{
 		Class.forName("org.postgresql.Driver");
 		Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/","default_database", "");
@@ -155,7 +149,7 @@ public class DataBaseDefaultController {
 	}
 	
 
-	@RequestMapping(value="/queryClients", method=RequestMethod.GET, produces="application/json") 
+	@RequestMapping(value="/queryclients", method=RequestMethod.GET, produces="application/json") 
 	public String queryClients() throws SQLException, ClassNotFoundException{
 		Class.forName("org.postgresql.Driver");
 		Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/","default_database", "");
