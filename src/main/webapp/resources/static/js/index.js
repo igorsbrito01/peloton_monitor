@@ -155,7 +155,7 @@ var app = angular.module("myApp", []).controller("myCtrl",function($scope, $wind
     $scope.menssagem = "";
 
     console.log("TESTANDO");
-    if($scope.script.toLowerCase() == "select * from employees"){
+    if($scope.script.toLowerCase() == "select * from employee"){
       dataEmployes();
     }else if($scope.script.toLowerCase() == "select * from departments"){
       dataDepartments();

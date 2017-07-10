@@ -96,7 +96,7 @@ public class DataBaseDefaultController {
 		Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/","default_database", "");
 		Statement statement = connection.createStatement();
 		ResultSet resultSet  = statement.executeQuery("select * from"
-				+ " employees");
+				+ " employee");
 		
 		List<List<String>> result = new ArrayList<List<String>>();
 		System.out.println("Entrou aqui!!==================");
