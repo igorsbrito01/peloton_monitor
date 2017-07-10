@@ -80,6 +80,7 @@ public class DataBaseMetaController {
 					
 				}
 				
+				connection.close();
 
 				String json = new Gson().toJson(tables);
 				//return "{status: success, ip:"+ip+",port:"+port+"}";
@@ -90,7 +91,7 @@ public class DataBaseMetaController {
 				e.printStackTrace();
 				
 				List<TableMeta> tables = new ArrayList<TableMeta>();
-				
+			
 				String json = new Gson().toJson(tables);
 				return json;
 			}

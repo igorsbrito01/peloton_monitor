@@ -77,6 +77,7 @@ public class DataBaseDefaultController {
 			tableDefault.setAttrs(listAttrs);
 			tableDefault.setAttrsVal(listAttrVals);
 			
+			connection.close();
 			
 			return new Gson().toJson(tableDefault);
 			
@@ -173,6 +174,8 @@ public class DataBaseDefaultController {
 			result.add(list);
 			
 		}
+		
+		
 		
 		return new Gson().toJson(result);
 		
