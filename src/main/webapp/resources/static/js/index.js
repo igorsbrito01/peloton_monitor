@@ -3,8 +3,8 @@ var app = angular.module("myApp", []).controller("myCtrl",function($scope, $wind
   message = "menssagem de erro ao retornar query"
   */
   $scope.message = "";
-  $scope.values = [];
-  $scope.attributs = [];
+  //$scope.values = [];
+ // $scope.attributs = [];
   $scope.script = "";
   $scope.connectionName = "";
   $scope.connectionIp = "localhost";
@@ -53,7 +53,7 @@ var app = angular.module("myApp", []).controller("myCtrl",function($scope, $wind
   });
 
 
-  $scope.play =function(){
+ /* $scope.play =function(){
     $scope.values = [];
     $scope.attributs = [];
     $scope.menssagem = "";
@@ -69,7 +69,7 @@ var app = angular.module("myApp", []).controller("myCtrl",function($scope, $wind
       $scope.message= "Essa função ainda não está disponivel";
     }
     
-  }
+  }*/
 	
   
   $scope.openGrafics = function(){
@@ -101,6 +101,12 @@ var app = angular.module("myApp", []).controller("myCtrl",function($scope, $wind
     console.log(connectionName);
   });
 
+  function showTable(valores, attributos){
+	    $scope.values = valores;
+	    $scope.attributs = attributos;
+	   
+	  }
+  
   $scope.teste = function(){
 
     var val = [
@@ -109,13 +115,11 @@ var app = angular.module("myApp", []).controller("myCtrl",function($scope, $wind
       ["3", "Paulo", "4"]
     ];
      var at = ["id","name", "salesman_id"];
+     
+     showTable(val, at);
   }
 
-  function showTable(valores, attributos){
-    $scope.values = valores;
-    $scope.attributs = attributos;
-
-  }
+ 
   
   function consultaDefault(ip, port, query){
 	    var xhr = new createCORSRequest();
@@ -134,13 +138,18 @@ var app = angular.module("myApp", []).controller("myCtrl",function($scope, $wind
 	    xhr.onload = function() {
 	      var text = xhr.responseText;
 	      
+	      if(text == ""){
+	    	  $scope.message= "wasn`t possible to execute the query";
+	    	  return ;
+	      }
+	      $scope.messag = "";
 	      var response = this.responseText;
 	      var resp = JSON.parse(response);
 	      console.log(resp);
 	      
-	      $scope.attributs = resp.attrs;
+	      var at = resp.attrs;
 	      
-	      $scope.values = [];
+	     var val = [];
 	      
 	      for(i in resp.attrsVal){
 	    	  var aux = [];
@@ -148,11 +157,12 @@ var app = angular.module("myApp", []).controller("myCtrl",function($scope, $wind
 	    	  for(j in resp.attrsVal[i]){
 	    		  aux.push(resp.attrsVal[i][j]);
 	    	  }
-	    	  $scope.values.push(aux);
+	    	  val.push(aux);
 	      }
-	      
-	      
-	      
+	      console.log(val[0]);
+	      showTable(val, resp.attrs);
+	      showTable(val, resp.attrs);
+	     
 	    };
 
 

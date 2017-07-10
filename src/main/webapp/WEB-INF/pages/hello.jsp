@@ -53,9 +53,9 @@
 
 					    		<br/>
 					    		<button id="submitFormula" class="btn btn-danger" ng-click="teste()"><!-- <span class="glyphicon glyphicon-stop" aria-hidden="true"></span>--> Stop</button>
-			    				<button id="cleanScope" class="btn btn-success" ng-click="play()"> <!--<span class="glyphicon glyphicon-play" aria-hidden="true"></span> --> Execute Query</button>
+			    				<button id="cleanScope" class="btn btn-success" ng-click="consultar()"> <!--<span class="glyphicon glyphicon-play" aria-hidden="true"></span> --> Execute Query</button>
 			    				<hr />
-
+								
 					    		<div class="lead">OUTPUT</div>
 								<div class="scripts panel panel-default ">
 
@@ -71,7 +71,7 @@
 							            </thead>
 							            <tbody>
 							              <tr ng-repeat="item in values">
-							                <td ng-repeat="i in item">{{i}}</td>
+							                <td ng-repeat="i in item track by $index">{{i}}</td>
 							              </tr>
 							            </tbody>
 							          </table>
