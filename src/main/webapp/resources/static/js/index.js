@@ -91,7 +91,7 @@ var app = angular.module("myApp", []).controller("myCtrl",function($scope, $wind
 		  if(aux[0].toLowerCase() == "select"){
 			  consultaDefault($scope.connectionIp, $scope.connectionPort, $scope.script);
 		  }else if(aux[0].toLowerCase() == "insert"){
-			  insertionDefault($scope.connectionIp, $scope.connectionPort);
+			  insertionDefault($scope.connectionIp, $scope.connectionPort, $scope.script);
 		  }
 		  
 		  
@@ -128,7 +128,7 @@ var app = angular.module("myApp", []).controller("myCtrl",function($scope, $wind
   }
 
  
-  function insertionDefault(ip, port){
+  function insertionDefault(ip, port, query){
 	  
 	  var xhr = new createCORSRequest();
 

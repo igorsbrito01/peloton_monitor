@@ -98,7 +98,7 @@ public class DataBaseDefaultController {
 			
 			PreparedStatement ps= connection.prepareStatement(query);  
 			
-			ps.executeQuery();  
+			ps.executeUpdate();  
 			
 			return "{status:success}";
 			
