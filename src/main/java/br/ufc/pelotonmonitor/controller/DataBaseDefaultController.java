@@ -78,7 +78,7 @@ public class DataBaseDefaultController {
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return "fail";
+			return "";
 		}
 		
 	}
