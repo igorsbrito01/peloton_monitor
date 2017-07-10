@@ -53,7 +53,7 @@
 
 					    		<br/>
 					    		<button id="submitFormula" class="btn btn-danger" ng-click="reqEmployees()"><!-- <span class="glyphicon glyphicon-stop" aria-hidden="true"></span>--> Stop</button>
-			    				<button id="cleanScope" class="btn btn-success" ng-click="play()"> <!--<span class="glyphicon glyphicon-play" aria-hidden="true"></span> --> Execute Query</button>
+			    				<button id="cleanScope" class="btn btn-success" ng-click="consultar()"> <!--<span class="glyphicon glyphicon-play" aria-hidden="true"></span> --> Execute Query</button>
 			    				<hr />
 
 					    		<div class="lead">OUTPUT</div>
