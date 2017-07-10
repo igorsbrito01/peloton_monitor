@@ -1,38 +1,3 @@
-function request(){
-    var xhr = new createCORSRequest();
-
-    xhr.open("GET", "http://localhost:8080/pelotonMonitor/teste/"+"Teste");
-
-    xhr.withCredentials = true;
-    xhr.setRequestHeader('enctype', 'multipart/form-data');
-    xhr.setRequestHeader('Access-Control-Allow-Origin','*');
-
-
-
-    xhr.withCredentials = false;
-    //xhr.responseType = 'json';
-    // Response handlers.
-    xhr.onload = function() {
-      var text = xhr.responseText;
-      
-      //var response = this.responseText;
-      //var resp = JSON.parse(response);
-      console.log(text);
-      
-    };
-
-
-    xhr.onerror = function() {
-      alert("Error");
-      console.log(this.status);
-      console.log(this.responseText);
-    };
-
-    xhr.send();
-
-
-}
-
 var app = angular.module("myApp", []).controller("myCtrl",function($scope, $window, $http) {
   /*
   message = "menssagem de erro ao retornar query"
@@ -113,27 +78,18 @@ var app = angular.module("myApp", []).controller("myCtrl",function($scope, $wind
     $("#modal-mensagem").modal(); 
   }
 
-  $scope.reqEmployees = function(){
-	request();
-  }
 
-
-  /*$scope.reqEmployees = function(){
-    $http.get("http://localhost:8080/monitorWeb/banco/employees").then( function(json) {
-      console.log(json);
-    }, function(erro) {
-      console.log("The request failed with response " + erro);
-    });
-  }*/
 
   $("#btnConnection").click(function(){
 
     var connectionName  = $("#connection-name").val();
 
     connectionStart($scope.connectionIp,$scope.connectionPort,$scope.connectionPassword );
-    
+   
+   
+
     console.log(connectionName);
-    treeArray = [{
+    /*treeArray = [{
       text: connectionName,
       nodes:[
         {
@@ -167,9 +123,9 @@ var app = angular.module("myApp", []).controller("myCtrl",function($scope, $wind
           ]
         }
       ]
-      }];
+      }];*/
 
-      $('#tree').treeview({data: treeArray ,levels: 3,  showBorder: true });
       //createTree(treeArray);
   });
+ 
 });
