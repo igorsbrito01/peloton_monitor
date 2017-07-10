@@ -20,7 +20,7 @@ import br.ufc.pelotonmonitor.dao.DatabaseDao;
 @Controller
 public class DataBaseDefaultController {
 	
-	 @RequestMapping(value="/query/{ip}/{port}/{query}", method=RequestMethod.GET, produces="application/json") 
+	@RequestMapping(value="/query/{ip}/{port}/{query}", method=RequestMethod.GET, produces="application/json") 
 	public @ResponseBody String  query(@PathVariable String ip, @PathVariable String port, @PathVariable String query){
 		
 		try {

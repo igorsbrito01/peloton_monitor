@@ -1,7 +1,7 @@
 function consultaDefault(ip, port, query){
     var xhr = new createCORSRequest();
 
-    xhr.open("GET", "http://localhost:8080/query/connect/"+ip+"/"+port+"/"+query);
+    xhr.open("GET", "http://localhost:8080/monitor/query/"+ip+"/"+port+"/"+query);
 
     xhr.withCredentials = true;
     xhr.setRequestHeader('enctype', 'multipart/form-data');

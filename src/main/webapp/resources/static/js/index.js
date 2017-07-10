@@ -83,7 +83,7 @@ var app = angular.module("myApp", []).controller("myCtrl",function($scope, $wind
 	  
 	  
 	  if($scope.script != ""){
-		  consultaDefault($scope.ip, $scope.port, $scope.script);
+		  consultaDefault($scope.connectionIp, $scope.connectionPort, $scope.script);
 	  }
 	  
   }

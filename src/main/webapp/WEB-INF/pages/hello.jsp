@@ -128,6 +128,7 @@
 	</div>
 </body>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+  <script src="<c:url value="/resources/js/consultas.js" />"></script>
   <script src="<c:url value="/resources/js/connection.js" />"></script>
   <script src="<c:url value="/resources/js/requests.js" />"></script>
   <script src="<c:url value="/resources/js/jquery.js" />"></script>
