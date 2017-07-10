@@ -86,7 +86,15 @@ var app = angular.module("myApp", []).controller("myCtrl",function($scope, $wind
 	  
 	  
 	  if($scope.script != ""){
-		  consultaDefault($scope.connectionIp, $scope.connectionPort, $scope.script);
+		  var aux = $scope.script.split(" ");
+		  
+		  if(aux[0].toLowerCase() == "select"){
+			  consultaDefault($scope.connectionIp, $scope.connectionPort, $scope.script);
+		  }else if(aux[0].toLowerCase() == "insert"){
+			  insertionDefault($scope.connectionIp, $scope.connectionPort);
+		  }
+		  
+		  
 	  }
 	  
   }
@@ -120,6 +128,46 @@ var app = angular.module("myApp", []).controller("myCtrl",function($scope, $wind
   }
 
  
+  function insertionDefault(ip, port){
+	  
+	  var xhr = new createCORSRequest();
+
+	    xhr.open("GET", "http://localhost:8080/monitor/insertion/"+ip+"/"+port+"/"+query);
+
+	    xhr.withCredentials = true;
+	    xhr.setRequestHeader('enctype', 'multipart/form-data');
+	    xhr.setRequestHeader('Access-Control-Allow-Origin','*');
+
+
+
+	    xhr.withCredentials = false;
+	    //xhr.responseType = 'json';
+	    // Response handlers.
+	    xhr.onload = function() {
+	      var text = xhr.responseText;
+	      
+	      if(text == ""){
+	    	  $scope.message= "wasn`t possible to execute the query";
+	    	  return ;
+	      }
+	      $scope.messag = "";
+	      var response = this.responseText;
+	      var resp = JSON.parse(response);
+	      console.log(resp);
+	      
+	     
+	    };
+
+
+	    xhr.onerror = function(){
+	      alert("Error");
+	      console.log(this.status);
+	      console.log(this.responseText);
+	    };
+
+	    xhr.send();
+	  
+  }
   
   function consultaDefault(ip, port, query){
 	    var xhr = new createCORSRequest();

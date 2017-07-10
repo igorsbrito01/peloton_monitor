@@ -83,101 +83,31 @@ public class DataBaseDefaultController {
 			
 			
 		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return "";
 		}
 		
 	}
 	
-	//Metodos temporarios, usados apenas para demonstracao enquando o metodo generico nao fica pronto
-	@RequestMapping(value="/queryemployee", method=RequestMethod.GET, produces="application/json") 
-	public @ResponseBody String queryEmployees() throws SQLException, ClassNotFoundException{
-		Class.forName("org.postgresql.Driver");
-		Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/","default_database", "");
-		Statement statement = connection.createStatement();
-		ResultSet resultSet  = statement.executeQuery("select * from"
-				+ " employee");
+	@RequestMapping(value="/insertion/{ip}/{port}/{query}", method=RequestMethod.GET, produces="application/json") 
+	public @ResponseBody String  insertion(@PathVariable String ip, @PathVariable String port, @PathVariable String query){
 		
-		List<List<String>> result = new ArrayList<List<String>>();
-		System.out.println("Entrou aqui!!==================");
-		while(resultSet.next()){
-			List<String> list = new ArrayList<String>();
+		
+		try {
+			Connection connection = DatabaseDao.connectionDatabaseDefault(ip,port);
 			
-			String id = resultSet.getString(1);
-			list.add(id);
-			String name = resultSet.getString(2);
-			list.add(name);
-			String sal = resultSet.getString(3);
-			list.add(sal);
-			String dId = resultSet.getString(4);
-			list.add(dId);
+			PreparedStatement ps= connection.prepareStatement(query);  
 			
-			result.add(list);
+			ps.executeQuery();  
 			
+			return "{status:success}";
+			
+			
+		} catch (ClassNotFoundException | SQLException e) {
+		
+			e.printStackTrace();
+			return "{status:fail}";
 		}
-		
-		return new Gson().toJson(result);
-			
-	}
-	
-	@RequestMapping(value="/querydepartments", method=RequestMethod.GET, produces="application/json") 
-	public String queryDepartments() throws SQLException, ClassNotFoundException{
-		Class.forName("org.postgresql.Driver");
-		Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/","default_database", "");
-		Statement statement = connection.createStatement();
-		ResultSet resultSet  = statement.executeQuery("select * from departments");
-		
-		List<List<String>> result = new ArrayList<List<String>>();
-		
-		while(resultSet.next()){
-			List<String> list = new ArrayList<String>();
-			
-			String id = resultSet.getString(1);
-			list.add(id);
-			String name = resultSet.getString(2);
-			list.add(name);
-			String sal = resultSet.getString(3);
-			list.add(sal);
-			
-			result.add(list);
-			
-		}
-		
-		return new Gson().toJson(result);
-		
-		
-	}
-	
-
-	@RequestMapping(value="/queryclients", method=RequestMethod.GET, produces="application/json") 
-	public String queryClients() throws SQLException, ClassNotFoundException{
-		Class.forName("org.postgresql.Driver");
-		Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/","default_database", "");
-		Statement statement = connection.createStatement();
-		ResultSet resultSet  = statement.executeQuery("select * from clients");
-		
-		List<List<String>> result = new ArrayList<List<String>>();
-		System.out.println("Entrou aqui!!==================");
-		while(resultSet.next()){
-			List<String> list = new ArrayList<String>();
-			
-			String id = resultSet.getString(1);
-			list.add(id);
-			String name = resultSet.getString(2);
-			list.add(name);
-			String sal = resultSet.getString(3);
-			list.add(sal);
-			
-		
-		
-			result.add(list);
-			
-		}
-		
-		
-		
-		return new Gson().toJson(result);
 		
 		
 	}
