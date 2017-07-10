@@ -50,7 +50,7 @@ var app = angular.module("myApp", []).controller("myCtrl",function($scope, $wind
   });
 
 
-  $scope.play =function(){
+  /*$scope.play =function(){
     $scope.values = [];
     $scope.attributs = [];
     $scope.menssagem = "";
@@ -67,7 +67,8 @@ var app = angular.module("myApp", []).controller("myCtrl",function($scope, $wind
     }
     
   }
-
+	*/
+  
   $scope.openGrafics = function(){
     console.log("TESTE");
     //location.replace("graficos.html");
@@ -78,6 +79,14 @@ var app = angular.module("myApp", []).controller("myCtrl",function($scope, $wind
     $("#modal-mensagem").modal(); 
   }
 
+  $scope.consultar = function(){
+	  
+	  
+	  if($scope.script != ""){
+		  consultaDefault($scope.ip, $scope.port, $scope.script);
+	  }
+	  
+  }
 
 
   $("#btnConnection").click(function(){
@@ -86,46 +95,7 @@ var app = angular.module("myApp", []).controller("myCtrl",function($scope, $wind
 
     connectionStart($scope.connectionIp,$scope.connectionPort,$scope.connectionPassword );
    
-   
-
     console.log(connectionName);
-    /*treeArray = [{
-      text: connectionName,
-      nodes:[
-        {
-        text:"Management_Database",
-          nodes:[
-            {
-              text:"Employees",
-              nodes:[
-              {text:"id"},
-              {text:"name"},
-              {text:"salary"},
-              {text:"department_id"}
-              ]
-            },
-            {
-              text:"Departments",
-              nodes:[
-              {text:"id"},
-              {text:"name"},
-              {text:"boss_id"}
-              ]
-            },
-            {
-              text:"Clients",
-              nodes:[
-              {text:"id"},
-              {text:"name"},
-              {text:"salesman_id"}
-              ]
-            }
-          ]
-        }
-      ]
-      }];*/
-
-      //createTree(treeArray);
   });
  
 });
