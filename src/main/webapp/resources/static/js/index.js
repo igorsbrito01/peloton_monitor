@@ -100,6 +100,22 @@ var app = angular.module("myApp", []).controller("myCtrl",function($scope, $wind
    
     console.log(connectionName);
   });
+
+  $scope.teste = function(){
+
+    var val = [
+      ["1","Henrique", "2"],
+      ["2","Lucas","3"],
+      ["3", "Paulo", "4"]
+    ];
+     var at = ["id","name", "salesman_id"];
+  }
+
+  function showTable(valores, attributos){
+    $scope.values = valores;
+    $scope.attributs = attributos;
+
+  }
   
   function consultaDefault(ip, port, query){
 	    var xhr = new createCORSRequest();

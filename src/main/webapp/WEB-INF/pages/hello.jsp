@@ -52,7 +52,7 @@
 					    		<textarea id="script" class="form-control input-lg" ng-model="script"  spellcheck="false"></textarea>
 
 					    		<br/>
-					    		<button id="submitFormula" class="btn btn-danger" ng-click="reqEmployees()"><!-- <span class="glyphicon glyphicon-stop" aria-hidden="true"></span>--> Stop</button>
+					    		<button id="submitFormula" class="btn btn-danger" ng-click="teste()"><!-- <span class="glyphicon glyphicon-stop" aria-hidden="true"></span>--> Stop</button>
 			    				<button id="cleanScope" class="btn btn-success" ng-click="play()"> <!--<span class="glyphicon glyphicon-play" aria-hidden="true"></span> --> Execute Query</button>
 			    				<hr />
 
