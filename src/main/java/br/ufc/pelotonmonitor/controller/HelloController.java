@@ -19,6 +19,16 @@ public class HelloController {
 
 	}
 	
+	
+	@RequestMapping(value = "/graphics", method = RequestMethod.GET)
+	public ModelAndView getGraphics() {
+
+		ModelAndView model = new ModelAndView("hello1");
+	
+		return model;
+
+	}
+	
 	 @RequestMapping(value="/teste/{foo}", method=RequestMethod.GET, produces="application/json") 
 	    public @ResponseBody String byParameter(@PathVariable String foo) {
 	        //Perform logic with foo 

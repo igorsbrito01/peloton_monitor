@@ -75,7 +75,7 @@ var app = angular.module("myApp", []).controller("myCtrl",function($scope, $wind
   $scope.openGrafics = function(){
     console.log("TESTE");
     //location.replace("graficos.html");
-    $window.open("graficos.html");
+    $window.open("/monitor/graphics");
   }  
 
   $scope.newConnection = function(){
