@@ -29,9 +29,38 @@ public class DataBaseMetaController {
 	    	System.out.println(ip);
 	    	System.out.println(port+"123");
 	    	
-	    	DatabaseDao databaseDao = new DatabaseDao();
-	    	try {
+	    	
+	    	
+	    	List<TableMeta> tables = new ArrayList<TableMeta>();
+	    	
+			try {
+				
+				DatabaseDao databaseDao = new DatabaseDao();
+				
 				Connection connection = databaseDao.connectionDatabaseMeta(ip, port,"");
+				
+				tables = getTables(connection);
+				
+				String json = new Gson().toJson(tables);
+				return json;
+				
+			} catch (ClassNotFoundException | SQLException e) {
+				e.printStackTrace();	
+				
+				String json = new Gson().toJson(tables);
+				return json;
+				
+			}
+	    	
+	    	
+	  
+	    } 
+	 
+	 
+	 public List<TableMeta> getTables(Connection connection){
+		 	
+	    	try {
+		
 				Statement statement = connection.createStatement();
 				ResultSet bancos  = statement.executeQuery("select * from pg_catalog.pg_database");
 				
@@ -84,18 +113,18 @@ public class DataBaseMetaController {
 
 				String json = new Gson().toJson(tables);
 				//return "{status: success, ip:"+ip+",port:"+port+"}";
-				return json;
+				return tables;
 				
-			} catch (ClassNotFoundException | SQLException e) {
+			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				
 				List<TableMeta> tables = new ArrayList<TableMeta>();
 			
-				String json = new Gson().toJson(tables);
-				return json;
+				return tables;
+				
 			}
-	    	
-	    	//return "{status: success, ip:"+ip+",port:"+port+"}";
-	    } 
+		 
+		 
+	 }
 }

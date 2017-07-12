@@ -1,6 +1,7 @@
 package br.ufc.pelotonmonitor.controller;
 
 import java.sql.Connection;
+
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,6 +21,8 @@ import com.google.gson.Gson;
 
 import br.ufc.pelotonmonitor.dao.DatabaseDao;
 import br.ufc.pelotonmonitor.model.TableDefault;
+import br.ufc.pelotonmonitor.model.TableMeta;
+import br.ufc.pelotonmonitor.controller.DataBaseMetaController;
 
 @Controller
 public class DataBaseDefaultController {
@@ -112,5 +115,36 @@ public class DataBaseDefaultController {
 		
 	}
 	
+	
+	@RequestMapping(value="/createtable/{ip}/{port}/{query}", method=RequestMethod.GET, produces="application/json") 
+	public @ResponseBody String  createTable(@PathVariable String ip, @PathVariable String port, @PathVariable String query){
+		
+		
+		List<TableMeta> tables = new ArrayList<TableMeta>();
+		
+		try {
+			Connection connection = DatabaseDao.connectionDatabaseDefault(ip,port);
+			
+			PreparedStatement ps= connection.prepareStatement(query);  
+			
+			ps.executeUpdate();  
+			
+			DataBaseMetaController dbmc = new DataBaseMetaController();
+			
+			tables =  dbmc.getTables(connection);
+			
+			String json = new Gson().toJson(tables);
+			return json;
+			
+		} catch (ClassNotFoundException | SQLException e) {
+		
+			e.printStackTrace();
+			
+			String json = new Gson().toJson(tables);
+			return json;
+		}
+		
+		
+	}
 
 }
