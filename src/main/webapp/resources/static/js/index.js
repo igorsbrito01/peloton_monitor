@@ -128,7 +128,8 @@ var app = angular.module("myApp", []).controller("myCtrl",function($scope, $wind
 	      var resp = JSON.parse(response);
 	      console.log(resp);
 	      
-	     
+	      montarArvore(resp);
+	      
 	    };
 
 
