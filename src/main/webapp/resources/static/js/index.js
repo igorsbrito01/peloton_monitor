@@ -91,7 +91,7 @@ var app = angular.module("myApp", []).controller("myCtrl",function($scope, $wind
 			  consultaDefault($scope.connectionIp, $scope.connectionPort, $scope.script);
 		  }else if(aux[0].toLowerCase() == "insert"){
 			  insertionDefault($scope.connectionIp, $scope.connectionPort, $scope.script);
-		  }else if(aux[0].toLowcase() ==  "create"){
+		  }else if(aux[0].toLowerCase() ==  "create"){
 			  createTable($scope.connectionIp, $scope.connectionPort, $scope.script);
 		  }
 		  
@@ -101,7 +101,7 @@ var app = angular.module("myApp", []).controller("myCtrl",function($scope, $wind
   }
 
   
-  function createTable(ip, port, script){
+  function createTable(ip, port, query){
 	  
 	  var xhr = new createCORSRequest();
 
