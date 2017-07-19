@@ -1,7 +1,7 @@
 br/ufc/pelotonmonitor/dao/DatabaseDao.class
-br/ufc/pelotonmonitor/controller/HelloController.class
+br/ufc/pelotonmonitor/service/DataBaseMetaService.class
 br/ufc/pelotonmonitor/model/TableDefault.class
+br/ufc/pelotonmonitor/service/DataBaseDefaultService.class
 br/ufc/pelotonmonitor/model/Database.class
-br/ufc/pelotonmonitor/controller/DataBaseDefaultController.class
-br/ufc/pelotonmonitor/controller/DataBaseMetaController.class
 br/ufc/pelotonmonitor/model/TableMeta.class
+br/ufc/pelotonmonitor/service/PagesService.class

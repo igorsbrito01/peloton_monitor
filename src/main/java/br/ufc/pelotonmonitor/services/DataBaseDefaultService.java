@@ -1,13 +1,8 @@
-package br.ufc.pelotonmonitor.controller;
+package br.ufc.pelotonmonitor.services;
 
 import java.sql.Connection;
-
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,66 +14,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 
-import br.ufc.pelotonmonitor.dao.DatabaseDao;
-import br.ufc.pelotonmonitor.model.TableDefault;
-import br.ufc.pelotonmonitor.model.TableMeta;
-import br.ufc.pelotonmonitor.controller.DataBaseMetaController;
+import br.ufc.pelotonmonitor.controllers.ScriptController;
+import br.ufc.pelotonmonitor.daos.DatabaseDao;
+import br.ufc.pelotonmonitor.models.TableDefault;
+import br.ufc.pelotonmonitor.models.TableMeta;
 
 @Controller
-public class DataBaseDefaultController {
+public class DataBaseDefaultService {
 	
 	@RequestMapping(value="/query/{ip}/{port}/{query}", method=RequestMethod.GET, produces="application/json") 
 	public @ResponseBody String  query(@PathVariable String ip, @PathVariable String port, @PathVariable String query){
 		
 		try {
 			Connection connection = DatabaseDao.connectionDatabaseDefault(ip,port);
-			//Statement statement = connection.createStatement();
-			
-			PreparedStatement ps= connection.prepareStatement(query);  
-			
-			ResultSet rs=ps.executeQuery();  
-			ResultSetMetaData rsmd=rs.getMetaData();  
-			
-			int numeroAttr = rsmd.getColumnCount();
-			
-			List<String> listAttrs = new ArrayList<String>();
-			
-			List<List<String>> listAttrVals = new ArrayList<List<String>>();
-			
-			for(int i  = 1; i <= numeroAttr; i ++){
-				listAttrs.add(rsmd.getColumnName(i));
-				System.out.println(rsmd.getColumnTypeName(i));
-			}
-			
-			
-			Statement statement = connection.createStatement();
-			ResultSet bancos  = statement.executeQuery(query);
-			
-			
-			while(bancos.next()){
-				List<String> aux = new ArrayList<String>();
-				
-				for(int j  = 1; j <= numeroAttr; j ++){
-					
-					if("int4" == rsmd.getColumnTypeName(j)){
-						String val = String.valueOf(bancos.getInt(j));
-						
-						aux.add(val);
-						
-					}else if("text" == rsmd.getColumnTypeName(j)){
-						String val = bancos.getString(j);
-						
-						aux.add(val);
-					}
-				}
-				
-				listAttrVals.add(aux);
-				
-			}
-			
-			TableDefault tableDefault = new TableDefault();
-			tableDefault.setAttrs(listAttrs);
-			tableDefault.setAttrsVal(listAttrVals);
+
+			TableDefault tableDefault = ScriptController.queryController(connection, query);
 			
 			connection.close();
 			
@@ -102,6 +52,8 @@ public class DataBaseDefaultController {
 			PreparedStatement ps= connection.prepareStatement(query);  
 			
 			ps.executeUpdate();  
+			
+			connection.close();
 			
 			return "{status:success}";
 			
@@ -129,9 +81,9 @@ public class DataBaseDefaultController {
 			
 			ps.executeUpdate();  
 			
-			DataBaseMetaController dbmc = new DataBaseMetaController();
+			connection.close();
 			
-			tables =  dbmc.getTables(connection);
+			tables =  ScriptController.getTables(connection);
 			
 			String json = new Gson().toJson(tables);
 			return json;

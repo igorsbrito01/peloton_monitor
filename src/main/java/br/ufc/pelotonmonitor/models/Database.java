@@ -1,4 +1,4 @@
-package br.ufc.pelotonmonitor.model;
+package br.ufc.pelotonmonitor.models;
 
 public class Database {
 	String name;

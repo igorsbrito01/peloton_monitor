@@ -1,4 +1,4 @@
-package br.ufc.pelotonmonitor.model;
+package br.ufc.pelotonmonitor.models;
 
 import java.io.Serializable;
 import java.util.List;

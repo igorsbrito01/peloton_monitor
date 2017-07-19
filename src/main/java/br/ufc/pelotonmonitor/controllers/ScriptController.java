@@ -1,63 +1,84 @@
-package br.ufc.pelotonmonitor.controller;
+package br.ufc.pelotonmonitor.controllers;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import br.ufc.pelotonmonitor.models.Database;
+import br.ufc.pelotonmonitor.models.TableDefault;
+import br.ufc.pelotonmonitor.models.TableMeta;
 
-import com.google.gson.Gson;
-
-import br.ufc.pelotonmonitor.dao.DatabaseDao;
-import br.ufc.pelotonmonitor.model.Database;
-import br.ufc.pelotonmonitor.model.TableMeta;
-
-@Controller
-public class DataBaseMetaController {
+public class ScriptController {
 
 	
-	 @RequestMapping(value="/connect/{ip}/{port}", method=RequestMethod.GET, produces="application/json") 
-	    public @ResponseBody String connection(@PathVariable String ip, @PathVariable String port) {
-	        //Perform logic with foo 
-	    	System.out.println(ip);
-	    	System.out.println(port+"123");
-	    	
-	    	
-	    	
-	    	List<TableMeta> tables = new ArrayList<TableMeta>();
-	    	
-			try {
+	public static TableDefault queryController(Connection connection, String query){
+		
+		TableDefault tableDefault = new TableDefault();
+		
+		try {
+			
+			PreparedStatement ps= connection.prepareStatement(query);  
+			
+			ResultSet rs=ps.executeQuery();  
+			ResultSetMetaData rsmd=rs.getMetaData();  
+			
+			int numeroAttr = rsmd.getColumnCount();
+			
+			List<String> listAttrs = new ArrayList<String>();
+			
+			List<List<String>> listAttrVals = new ArrayList<List<String>>();
+			
+			for(int i  = 1; i <= numeroAttr; i ++){
+				listAttrs.add(rsmd.getColumnName(i));
+				System.out.println(rsmd.getColumnTypeName(i));
+			}
+			
+			
+			Statement statement = connection.createStatement();
+			ResultSet bancos  = statement.executeQuery(query);
+			
+			
+			while(bancos.next()){
+				List<String> aux = new ArrayList<String>();
 				
-				DatabaseDao databaseDao = new DatabaseDao();
+				for(int j  = 1; j <= numeroAttr; j ++){
+					
+					if("int4" == rsmd.getColumnTypeName(j)){
+						String val = String.valueOf(bancos.getInt(j));
+						
+						aux.add(val);
+						
+					}else if("text" == rsmd.getColumnTypeName(j)){
+						String val = bancos.getString(j);
+						
+						aux.add(val);
+					}
+				}
 				
-				Connection connection = databaseDao.connectionDatabaseMeta(ip, port,"");
-				
-				tables = getTables(connection);
-				
-				String json = new Gson().toJson(tables);
-				return json;
-				
-			} catch (ClassNotFoundException | SQLException e) {
-				e.printStackTrace();	
-				
-				String json = new Gson().toJson(tables);
-				return json;
+				listAttrVals.add(aux);
 				
 			}
-	    	
-	    	
-	  
-	    } 
-	 
-	 
-	 public List<TableMeta> getTables(Connection connection){
+			
+			tableDefault.setAttrs(listAttrs);
+			tableDefault.setAttrsVal(listAttrVals);
+			
+			return tableDefault;
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return tableDefault;
+		}
+		
+		
+	}
+	
+	 public static List<TableMeta> getTables(Connection connection){
 		 	
 	    	try {
 		
@@ -111,8 +132,6 @@ public class DataBaseMetaController {
 				
 				connection.close();
 
-				String json = new Gson().toJson(tables);
-				//return "{status: success, ip:"+ip+",port:"+port+"}";
 				return tables;
 				
 			} catch (SQLException e) {

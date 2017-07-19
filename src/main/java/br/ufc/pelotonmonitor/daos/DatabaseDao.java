@@ -1,4 +1,4 @@
-package br.ufc.pelotonmonitor.dao;
+package br.ufc.pelotonmonitor.daos;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
