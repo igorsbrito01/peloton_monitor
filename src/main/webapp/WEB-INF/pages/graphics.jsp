@@ -140,8 +140,8 @@
 	  // espaço livre em disco
 	  var data = google.visualization.arrayToDataTable([
           ['January', 'Hours per Day'],
-          ['Occupied',     11],
-          ['Available',      89]
+          ['Occupied',     ${diskUsed}],
+          ['Available',    ${usableDiskSpace}]
         ]);
 
         var options5 = {
