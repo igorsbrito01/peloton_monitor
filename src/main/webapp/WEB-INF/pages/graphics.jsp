@@ -140,12 +140,12 @@
 	  // espaço livre em disco
 	  var data = google.visualization.arrayToDataTable([
           ['January', 'Hours per Day'],
-          ['Occupied',     11],
-          ['Available',      89]
+          ['Using',     ${cpuUsage}],
+          ['Available',    ${freeCpu}]
         ]);
 
         var options5 = {
-          title: 'Available disk space'
+          title: 'CPU Usage'
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('piechart2'));
