@@ -81,9 +81,10 @@ public class DataBaseDefaultService {
 			
 			ps.executeUpdate();  
 			
-			connection.close();
 			
 			tables =  ScriptController.getTables(connection);
+			
+			connection.close();
 			
 			String json = new Gson().toJson(tables);
 			return json;

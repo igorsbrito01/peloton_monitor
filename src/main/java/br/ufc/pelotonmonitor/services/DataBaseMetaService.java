@@ -33,6 +33,9 @@ public class DataBaseMetaService {
 				tables = ScriptController.getTables(connection);
 				
 				String json = new Gson().toJson(tables);
+				
+				connection.close();
+				
 				return json;
 				
 			} catch (ClassNotFoundException | SQLException e) {

@@ -130,7 +130,6 @@ public class ScriptController {
 					
 				}
 				
-				connection.close();
 
 				return tables;
 				
